@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="styles.css">
+    <script src="./index.js"></script>
+    <title>SVG Demo</title>
+
+  </head>
+  <body>
+    <main>
+      <% files_and_messages.each do |(filename, message)| %>
+        <div class="item-container">
+          <div class="lenses-container">
+          <h3 class="filename"><%= filename %></h3>
+
+            <% if (svgs = message.to_svg).any? %>
+
+              <% svgs.map do |svg| %>
+                <div class="lens">
+                  <%= svg %>
+                </div>
+              <% end %>
+            <% else %>
+              <div>
+                Could not recognize tracing data.
+              </div>
+            <% end %>
+
+          </div>
+          <div class="downloads">
+            <button class="install" id=<%= filename %> onClick="download_svg(event)">
+                <img class="button-icon" id=<%= filename %> src="./svgfile.svg" width="32px"/>
+            </button>
+            <button  class="install" id=<%= filename %> onClick="download_oma(event)">
+                <img class="button-icon"  id=<%= filename %> src="./file.svg" width="32px"/>
+            </button>
+            <button class="install delete" id=<%= filename %> onClick="remove_item(event)">
+                <img class="button-icon"  id=<%= filename %> src="./delete.svg" width="32px"/>
+            </button>
+          </div>
+        </div>
+      <% end %>
+    </main>
+    <div
+      onClick="openDialog(event)"
+      id="drop_zone"
+      ondrop="dropHandler(event);"
+      ondragover="dragOverHandler(event);">
+      <img class="icon" src="./upload.svg" />
+      <h3>Drag & Drop .oma files</h3>
+    </div>
+  </body>
+</html>
