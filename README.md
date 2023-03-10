@@ -1,9 +1,13 @@
 # lens_frontend
 
-<p align="center">
-  
-  <img src="https://i.ibb.co/HhtcFV0/demo-lens.png" width="900"/>
+A frontend for converting OMA lens files to SVG.
+Made to be user-friendly
 
+Uses [lens_protocol](https://github.com/eeng/lens_protocol) for server-side OMA to SVG conversion
+
+
+<p align="center">
+  <img src="https://i.ibb.co/HhtcFV0/demo-lens.png" width="900"/>
 </p>
 
 
@@ -11,6 +15,7 @@
 
 ```
 bundle install
+mkdir oma
 ```
 
 ### Run Application
