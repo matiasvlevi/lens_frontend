@@ -6,8 +6,9 @@ set :allow_origin, "*"
 set :allow_methods, "GET,HEAD,POST"
 set :allow_headers, "content-type,if-modified-since"
 set :expose_headers, "location,link"
-
-%x( start http://127.0.0.1:4567 )
+set :bind, '0.0.0.0'
+set :port, 80
+%x( start http://127.0.0.1:80 )
 
 get '/' do
   content_type 'text/html'
@@ -45,14 +46,15 @@ get '/upload' do
 end
 
 post '/upload' do
-
-  headers 'Access-Control-Allow-Origin' => '*'
-  content_type 'text/plain'
-
-  file = request.body.read
+  if File.extname(params[:file]) == ".oma" then
+    headers 'Access-Control-Allow-Origin' => '*'
+    content_type 'text/plain'
   
-  File.write("./oma/#{params[:file]}", file);
-  render "index"
-
-  'ok'
+    file = request.body.read
+    
+    File.write("./oma/#{params[:file]}", file);
+    render "index"
+  
+    'ok'
+  end
 end

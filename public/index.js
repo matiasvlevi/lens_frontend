@@ -1,5 +1,5 @@
 
-const BASE = 'http://127.0.0.1:4567';
+const BASE = window.location.href;
 const delay = (t) => new Promise(resolve => setTimeout(resolve, t));
 
 /**
