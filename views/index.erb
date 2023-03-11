@@ -1,15 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <link rel="stylesheet" href="styles.css">
-    <script src="./index.js"></script>
-    <title>SVG Demo</title>
-
+    <link rel="stylesheet" href="./dist/styles.min.css">
+    <script src="./dist/index.min.js"></script>
+    <title>Lens Frontend | Convert OMA to SVG </title>
   </head>
   <body>
+    <header>
+
+      <h1>Lens Frontend</h1>
+      
+      <div class="top-menu">
+        <div class="slider">
+          <input type="range" min="200" max="600" value="350" step="1" oninput="zoom(event)">
+        </div>
+      </div>
+    </header>
     <main>
       <% files_and_messages.each do |(filename, message)| %>
-        <div class="item-container">
+        <div class="item-container" id=<%= filename %> >
           <div class="lenses-container">
           <h3 class="filename"><%= filename %></h3>
 
@@ -28,13 +37,13 @@
 
           </div>
           <div class="downloads">
-            <button class="install" id=<%= filename %> onClick="download_svg(event)">
+            <button title="Download SVG" class="install" id=<%= filename %> onClick="download_file(event, 'svg')">
                 <img class="button-icon" id=<%= filename %> src="./svgfile.svg" width="32px"/>
             </button>
-            <button  class="install" id=<%= filename %> onClick="download_oma(event)">
+            <button title="Download OMA" class="install" id=<%= filename %> onClick="download_file(event, 'oma')">
                 <img class="button-icon"  id=<%= filename %> src="./file.svg" width="32px"/>
             </button>
-            <button class="install delete" id=<%= filename %> onClick="remove_item(event)">
+            <button title="Delete" class="install delete" id=<%= filename %> onClick="remove_item(event)">
                 <img class="button-icon"  id=<%= filename %> src="./delete.svg" width="32px"/>
             </button>
           </div>

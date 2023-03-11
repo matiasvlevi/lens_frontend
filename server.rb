@@ -7,6 +7,8 @@ set :allow_methods, "GET,HEAD,POST"
 set :allow_headers, "content-type,if-modified-since"
 set :expose_headers, "location,link"
 
+%x( start http://127.0.0.1:4567 )
+
 get '/' do
   content_type 'text/html'
   files_and_messages = Dir['oma/*.oma'].map do |file|
@@ -25,6 +27,14 @@ get '/download/svg/:name.svg' do
 
   file.to_svg()[params[:id].to_i]
 end
+
+get '/download/oma/:name.oma' do
+    content_type 'data:text/plain'
+  
+    name = params['name'];
+  
+    File.read("./oma/#{name}.oma")
+  end
 
 get '/delete' do
     File.delete("oma/#{params[:file]}")
