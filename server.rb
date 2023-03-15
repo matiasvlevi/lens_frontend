@@ -8,12 +8,16 @@ set :allow_headers, "content-type,if-modified-since"
 set :expose_headers, "location,link"
 set :bind, '0.0.0.0'
 set :port, 80
-%x( start http://127.0.0.1:80 )
 
 get '/' do
   content_type 'text/html'
-  files_and_messages = Dir['oma/*.oma'].map do |file|
-    [File.basename(file), LensProtocol::OMA.parse(File.read(file))]
+  files_and_messages = Dir['oma/*'].map do |file|
+    if 
+      File.extname(file).casecmp(".oma") ||
+      File.extname(file).casecmp(".ptn") 
+    then
+      [File.basename(file), LensProtocol::OMA.parse(File.read(file))]
+    end
   end
 
   erb :index, locals: {files_and_messages: files_and_messages}
@@ -46,7 +50,10 @@ get '/upload' do
 end
 
 post '/upload' do
-  if File.extname(params[:file]) == ".oma" then
+  if 
+    File.extname(params[:file]).casecmp(".oma") ||
+    File.extname(params[:file]).casecmp(".ptn") 
+  then
     headers 'Access-Control-Allow-Origin' => '*'
     content_type 'text/plain'
   
