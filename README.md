@@ -14,6 +14,7 @@ Uses [lens_protocol](https://github.com/eeng/lens_protocol) for server-side OMA 
 ### Install dependencies
 
 ```
+gem install bundle
 bundle install
 mkdir oma
 ```
