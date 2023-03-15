@@ -45,10 +45,6 @@ get '/delete' do
     File.delete("oma/#{params[:file]}")
 end
 
-get '/upload' do
-  erb :upload
-end
-
 post '/upload' do
   if 
     File.extname(params[:file]).casecmp(".oma") ||
